@@ -3,25 +3,21 @@ class Clock {
     this._timer;
   }
 
-  render() {
-    let date = new Date().toLocaleTimeString(`ru`).split(`:`);
-    let [ hours, min, sec ] = date;
+  _render() {
+      let [hours, min, sec] = new Date().toLocaleTimeString(`ru`).split(`:`);
 
-    let time = `${hours}:${min}:${sec}`;
-    let color = `#${hours}${min}${sec}`;
-
-    document.querySelector(`.clock`).textContent = time;
-    document.body.style.backgroundColor = color;
-  }
+      document.querySelector(`.clock`).textContent = `${ hours = hours.length < 2 ? `0${hours}` : hours }:${ min }:${ sec }`;
+      document.body.style.backgroundColor = `#${ hours }${ min }${ sec }`;
+    }
 
   stop() {
     clearInterval(this._timer);
   }
 
   start() {
-    this.render();
+    this._render();
 
-    this._timer = setInterval(this.render.bind(this), 1000);
+    this._timer = setInterval(() => this._render(), 1000);
   }
 }
 
